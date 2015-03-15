@@ -1,0 +1,33 @@
+<p>Search by county name or zip code</p>
+		<%= form_tag centers_path,  class: "form-search", :method => :get do %>
+				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
+				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
+		<% end %>
+		
+		<ul>
+			<% @centers.each do |center| %>
+				<li>
+					Name: <%= center.site_name %><br>
+					Phone: <%= center.phone_number %><br>
+					Fax: <%= center.fax_number %><br>
+					Admin #:<%= center.admin_number %><br>
+					website: <%= center.website %> <br>
+					Address: <%= center.address %><br>
+					<%= center.city %>,
+					<%= center.state %>,
+					<%= center.zip_code %> <%= center.full_county_name %><br>
+					<%= center.site_status %> |
+					<%= center.location_type_desc %> |
+					<%= center.center_type_desc %> |
+					<%= center.op_schedule_desc %> |
+					<%= center.op_calendar %><br>
+					<%= center.longitude %>, <%= center.latitude %><br>
+
+				</li>
+
+			<% end %>
+
+		</ul>
+		
+		<%= will_paginate @search.hits unless @search.nil? %>
+
