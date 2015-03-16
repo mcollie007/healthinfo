@@ -19,6 +19,10 @@ class CentersController < ApplicationController
 
 	end
 
+	def show
+		@center = Center.find(params[:id])
+	end
+
 	private
 
 	def permit_all

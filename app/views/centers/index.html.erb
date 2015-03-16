@@ -1,10 +1,11 @@
-<p>Search by county name or zip code</p>
+<p>Search by city, county name or zip code</p>
 		<%= form_tag centers_path,  class: "form-search", :method => :get do %>
 				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
 				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
 		<% end %>
 		
 		<ul>
+			<p><%= @search.total == 0 ? "No Health Centers Found" : "#{@search.total} Health Centers Found" %></p>
 			<% @centers.each do |center| %>
 				<li>
 					Name: <%= center.site_name %><br>
@@ -22,7 +23,7 @@
 					<%= center.op_schedule_desc %> |
 					<%= center.op_calendar %><br>
 					<%= center.longitude %>, <%= center.latitude %><br>
-
+					<%= link_to "Clinic", "#" %>
 				</li>
 
 			<% end %>

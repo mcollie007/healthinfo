@@ -7,7 +7,7 @@ class Center < ActiveRecord::Base
 =end
 	searchable do 
 		text :zip_code #, :as => :zip_code_textp
-		text :county_name, :full_county_name
+		text :county_name, :full_county_name, :city
 		
 	end
 end
