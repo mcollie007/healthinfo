@@ -12,7 +12,9 @@
 					Phone: <%= center.phone_number %><br>
 					Fax: <%= center.fax_number %><br>
 					Admin #:<%= center.admin_number %><br>
-					website: <%= center.website %> <br>
+					<% if center.website != "unkn" || center.website != "" %>
+					  Website: <%#=center.website %><%= link_to center.website, "http://#{center.website}" %> <br>
+					<% end %>
 					Address: <%= center.address %><br>
 					<%= center.city %>,
 					<%= center.state %>,

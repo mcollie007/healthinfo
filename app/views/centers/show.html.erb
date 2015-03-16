@@ -2,26 +2,31 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">
-			<div class="center-info">
-				<h2><%= @center.site_name %></h2>
-				<p><em>Phone:</em> <%= @center.phone_number %>
-					<em>Fax:</em> <%= @center.fax_number %><br>
-					<em>Admin #:</em> <%= @center.admin_number %><br>
-					<em>website:</em> <%= @center.website %> <br></p>
-					<p>Address: <%= @center.address %><br>
-					<%= @center.city %>,
-					<%= @center.state %>,
-					<%= @center.zip_code %> <%= @center.full_county_name %><br>
+			<div class="center-status">
+				<p>Status: <em>
 					<%= @center.site_status %> |
 					<%= @center.location_type_desc %> |
 					<%= @center.center_type_desc %> |
 					<%= @center.op_schedule_desc %> |
-					<%= @center.op_calendar %><br>
-					<%= @center.longitude %>, <%= @center.latitude %><br></p>
+					<%= @center.op_calendar %> </em></p>
+			</div>	
+			<div class="center-info">
+				<h2><%= @center.site_name %></h2>
+				<p><em>Phone:</em> <%= @center.phone_number %><br>
+					<em>Fax:</em> <%= @center.fax_number %><br>
+					<em>Admin #:</em> <%= @center.admin_number %><br>
+					<em>website:</em> <%= link_to @center.website, "http://#{@center.website}" %><br></p>
+					<h3>Address</h3>
+					<p><%= @center.address %><br>
+					<%= @center.city %>,
+					<%= @center.state %>,
+					<%= @center.zip_code %> </br> <%= @center.full_county_name %></p>
 			</div>
 		</div>
 		<div class="col-md-4">
-
+			<div class="center-map">
+				<p>Map: <%= @center.longitude %>, <%= @center.latitude %></p>
+			</div>
 		</div>
 	</div>
 </div>
