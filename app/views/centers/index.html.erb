@@ -1,36 +1,57 @@
-<p>Search by city, county name or zip code</p>
+
+<div class="main">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4 col-md-4"></div>
+			<div class="col-xs-8 col-md-8">
+				<em>Search by city, county name or zip code</em>
 		<%= form_tag centers_path,  class: "form-search", :method => :get do %>
 				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
 				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
 		<% end %>
+			</div>
+			<div class="col-xs-2 col-md-2"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 col-md-8 search-list">
+			<p class="search-stats"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
+			<%= will_paginate @search.hits unless @search.nil? %>	
 		
 		<ul>
-			<p><%= @search.total == 0 ? "No Health Centers Found" : "#{@search.total} Health Centers Found" %></p>
+			
 			<% @centers.each do |center| %>
-				<li>
-					Name: <%= center.site_name %><br>
-					Phone: <%= center.phone_number %><br>
-					Fax: <%= center.fax_number %><br>
-					Admin #:<%= center.admin_number %><br>
-					<% if center.website != "unkn" || center.website != "" %>
-					  Website: <%#=center.website %><%= link_to center.website, "http://#{center.website}" %> <br>
+				<li class=<%= "#{center.location_type_desc.downcase}"%> id=<%=" cal-#{center.op_calendar.downcase}" %>  >
+					<h4><%= link_to center.site_name, center %></h4>
+					
+					<% if center.website == "unkn" || center.website == "" || center.website == nil %>
+					  Website unavailable</br>
+					<% else %>
+					    <%= link_to center.website, "http://#{center.website}", class: "search-link" %> <br>
 					<% end %>
-					Address: <%= center.address %><br>
-					<%= center.city %>,
-					<%= center.state %>,
-					<%= center.zip_code %> <%= center.full_county_name %><br>
-					<%= center.site_status %> |
-					<%= center.location_type_desc %> |
-					<%= center.center_type_desc %> |
-					<%= center.op_schedule_desc %> |
-					<%= center.op_calendar %><br>
+					<p><%= center.address %>, <%= center.city %>, 
+					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br>
+
+					<%= "Phone: #{center.phone_number}"  unless center.phone_number.nil? %><br>
+					<%= "Fax: #{center.fax_number}" unless center.fax_number.nil? %><br>
+					<%= "Office Number: #{center.admin_number}" unless center.admin_number.nil? %></p>
+					
+
+					<%= center.site_status.downcase %> <br>
+					
 					<%= center.longitude %>, <%= center.latitude %><br>
-					<%= link_to "Clinic", center %>
+					
 				</li>
 
 			<% end %>
-
+			
 		</ul>
-		
 		<%= will_paginate @search.hits unless @search.nil? %>
+		
+		</div>
 
+			<div class="col-xs-4 col-md-4"></div>
+
+		</div>
+	</div>
+</div>

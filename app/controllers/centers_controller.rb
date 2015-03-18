@@ -11,10 +11,11 @@ class CentersController < ApplicationController
 			end
 			
 			@centers = @search.results
+			@total = @search.total
 			
 		else
 			@centers = []
-			
+			@total = 0
 		end
 
 	end

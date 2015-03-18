@@ -11,12 +11,17 @@
 					<%= @center.op_calendar %> </em></p>
 			</div>	
 			<div class="center-info">
-				<h2><%= @center.site_name %></h2>
+				<h4><%= @center.site_name %></h4>
 				<p><em>Phone:</em> <%= @center.phone_number %><br>
 					<em>Fax:</em> <%= @center.fax_number %><br>
 					<em>Admin #:</em> <%= @center.admin_number %><br>
-					<em>website:</em> <%= link_to @center.website, "http://#{@center.website}" %><br></p>
-					<h3>Address</h3>
+					 
+					<% if @center.website == "unkn" || @center.website == "" %>
+					  <em>website:</em> N/a </br>
+					<% else %>
+					  <em>website:</em><%= link_to @center.website, "http://#{@center.website}" %><br>
+					<% end %></p>
+					<strong>Address</strong>
 					<p><%= @center.address %><br>
 					<%= @center.city %>,
 					<%= @center.state %>,

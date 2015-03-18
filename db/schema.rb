@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315022741) do
+ActiveRecord::Schema.define(version: 20150317054611) do
 
   create_table "centers", force: :cascade do |t|
     t.string   "site_name"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20150315022741) do
     t.string   "full_county_name"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "phone"
+    t.string   "query"
+    t.text     "data"
+    t.integer  "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
