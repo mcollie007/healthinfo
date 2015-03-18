@@ -19,19 +19,21 @@ class TextSearch
 			end
 			data = @search.results
 			total = @search.total
-			#save and update user total @user = User.find_by(:phone @user_number)
-			#if @user.update(total,data)
-			amount = page_generator(total)
-			text_page(data, total, amount)
-			#end
+
+			@user = find_user
+			if @user.update(data: user_params[data], total: user_params[total])
+				amount = page_generator(total)
+				text_page(data, total, amount)
+			end
 		when 'MORE'
 			 #amount ||= @cmd[1] if empty
-			@user = User.find_by(:phone @user_number)
-			data = @user.data
-			total = @user.total
-			amount = page_generator(total)
-			text_page(data, total, amount)
-
+			@user = find_user
+			if @user 
+				data = @user.data
+				total = @user.total
+				amount = page_generator(total)
+				text_page(data, total, amount)
+			end
 		when 'HELP'
 			#send help info to user
 			
@@ -82,26 +84,36 @@ class TextSearch
 
 	end
 
+	def find_user
+		User.find_by(phone: user_params[@user_number]) 
+	end
+
+	private
+
+		def user_params
+			params.require(:user).permit(:phone, :query, :data, :total)
+		end
+
 	protected 
 
-	def message_generator(data)
-		'Name: #{data.site_name}, Phone: #{data.phone_number}, Fax: #{data.fax_number}
-			Mgmt: #{data.admin_number}; Address: #{data.address} #{data.city}, #{data.state}, 
-			#{data.zip_code}, #{data.county_name}. This clinic is currently #{data.site_status} 
-			and is at a #{data.location_type_desc} location. This is a #{data.op_schedule_desc} 
-			#{data.center_type_desc} which is open #{data.op_calendar}'
-	end
-
-	def page_generator(total)
-		if total %4 == 0
-			total / 4 
-		
-		elsif total %3 == 0
-			total / 3
-
-		else 
-			total / 2
+		def message_generator(data)
+			'Name: #{data.site_name}, Phone: #{data.phone_number}, Fax: #{data.fax_number}
+				Mgmt: #{data.admin_number}; Address: #{data.address} #{data.city}, #{data.state}, 
+				#{data.zip_code}, #{data.county_name}. This clinic is currently #{data.site_status} 
+				and is at a #{data.location_type_desc} location. This is a #{data.op_schedule_desc} 
+				#{data.center_type_desc} which is open #{data.op_calendar}'
 		end
-	end
+
+		def page_generator(total)
+			if total %4 == 0
+				total / 4 
+			
+			elsif total %3 == 0
+				total / 3
+
+			else 
+				total / 2
+			end
+		end
 
 end
