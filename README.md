@@ -1,3 +1,10 @@
+__________
+|__|  |__|
+|__    __|
+|__|__|__|
+
+Clinic Square
+
 Web application uses sunspot solr for search.
 
 bundle install
