@@ -1,4 +1,4 @@
-
+<div class="main" ng-controller="MainController">
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">
@@ -34,7 +34,11 @@
 		<div class="col-md-4">
 			<div class="center-map">
 				<p>Map: <%= @center.longitude %>, <%= @center.latitude %></p>
+				<div class="container-fluid" id="map-canvas">
+        			<leaflet markers="mapMarkers"></leaflet>
+      			</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>

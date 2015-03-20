@@ -16,5 +16,6 @@
 //= require helpers.js
 // require angular
 // require angular-ui-router
+// require angular-route.min.js
 //= require turbolinks
 //= require_tree .
