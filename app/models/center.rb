@@ -10,5 +10,10 @@ class Center < ActiveRecord::Base
 		text :county_name, :full_county_name, :city
 		
 	end
+=begin
+	def as_json(options = {})
+		super(options.merge(include: [:center]))
+	end
+=end
 end
 #searc using solr, locate centers by location using county_name, full_county_name, and zip_code

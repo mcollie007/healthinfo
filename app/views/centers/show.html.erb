@@ -12,7 +12,8 @@
 			</div>	
 			<div class="center-info">
 				<h4><%= @center.site_name %></h4>
-				<p><em>Phone:</em> <%= @center.phone_number %><br>
+				<div class="col-xs-4">
+				<p style="margin-left:-15px;"><em>Phone:</em> <%= @center.phone_number %><br>
 					<em>Fax:</em> <%= @center.fax_number %><br>
 					<em>Admin #:</em> <%= @center.admin_number %><br>
 					 
@@ -20,12 +21,14 @@
 					  <em>website:</em> N/a </br>
 					<% else %>
 					  <em>website:</em><%= link_to @center.website, "http://#{@center.website}" %><br>
-					<% end %></p>
-					<strong>Address</strong>
-					<p><%= @center.address %><br>
+					<% end %></p></div>
+					<div class="col-xs-4">
+					<p><strong style="display:block;">Address</strong>
+					<%= @center.address %><br>
 					<%= @center.city %>,
 					<%= @center.state %>,
 					<%= @center.zip_code %> </br> <%= @center.full_county_name %></p>
+					</div>
 			</div>
 		</div>
 		<div class="col-md-4">

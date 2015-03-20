@@ -1,5 +1,5 @@
 
-<div class="main">
+<div class="main" ng-controller="MainController">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4 col-md-4"></div>
@@ -50,7 +50,11 @@
 		
 		</div>
 
-			<div class="col-xs-4 col-md-4"></div>
+			<div class="col-xs-4 col-md-4">
+				<div class="container-fluid" id="map-canvas">
+        			<leaflet markers="mapMarkers"></leaflet>
+      			</div>
+			</div>
 
 		</div>
 	</div>

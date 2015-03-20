@@ -1,29 +1,35 @@
 class TextSearch
 
-	def initialize(text, from_number)
+	def initialize(text, from_number, command, loc)
 		@text = text
 		@user_number = from_number
+		@command = command
+		@location = loc
+		Rails.logger.debug(@command)
+		Rails.logger.debug(@location)
 		@service_number = "9545555454"
 		@help_message = 'Service Commands:  CLINIC, MORE and HELP. Commands use: 
 		CLINIC@zip_code, CLINIC@city_name, CLINIC@county_name, MORE returns remaining result, and HELP lists service commands.' 
 	end
 
 	def search
-		@cmd = @text.split("@") # (/[\W@\s\>]/)
-		@keyword = @cmd[0]
-		case keyword
+		
+		case @command
 		when 'CLINIC'
-			location = @cmd[1]
+			
+			Rails.logger.debug(@location)
+		
 			@search = Center.search do
-				fulltext location	
+				fulltext @location	
 			end
 			data = @search.results
 			total = @search.total
-
+			#Rails.logger.debug(data)
+			Rails.logger.debug(total)
 			@user = find_user
-			if @user.update(data: user_params[data], total: user_params[total])
+			if @user.update(data: data, total: total)
 				amount = page_generator(total)
-				text_page(data, total, amount)
+				#@search = text_page(data, total, amount)
 			end
 		when 'MORE'
 			 #amount ||= @cmd[1] if empty
@@ -32,15 +38,20 @@ class TextSearch
 				data = @user.data
 				total = @user.total
 				amount = page_generator(total)
-				text_page(data, total, amount)
+				#Rails.logger.debug(data)
+				Rails.logger.debug(total)
+				#@search = text_page(data, total, amount)
 			end
 		when 'HELP'
 			#send help info to user
 			
-			send(@help_message)
+			@search = send(@help_message)
+			#Rails.logger.debug(data)
+			Rails.logger.debug(@search)
 		else
 			#send help info to user
-			send("Service Commands are: HELP, CLINIC, and MORE")
+			@search = send("Service Commands are: HELP, CLINIC, and MORE")
+			Rails.logger.debug(@search)
 		end
 
 	end
@@ -53,7 +64,7 @@ class TextSearch
 			total-- 
 			#if @user.update(total)  user.save
 			message = message_generator(msg)
-			send(message)
+			return send(message)
 			#if total > 0 send("#{total} results left. Type MORE or MORE@amount where amount = numbers 1-10")
 			#end
 			
@@ -61,7 +72,7 @@ class TextSearch
 	end
 
 	def send(message)
-		p = RestApi.new(Auth_id, Auth_Token)
+		#p = RestApi.new(Auth_id, Auth_Token)
 
 		params = {
 			'src' => @service_number,
@@ -72,20 +83,22 @@ class TextSearch
 			'method' => 'POST'
 		}
 
-		response = p.send_message(params)
+		#response = p.send_message(params)
+		Rails.logger.debug(params)
 
-		uuid = response[1]['message_uuid'][0]
+		#uuid = response[1]['message_uuid'][0]
 
-		params1 = {
-			'record_id' => uuid
-		}
+		#params1 = {
+		#	'record_id' => uuid
+		#}
 
-		response = p.get_message(params1) #save to log db
+		return params
+		#response = p.get_message(params1) #save to log db
 
 	end
 
 	def find_user
-		User.find_by(phone: user_params[@user_number]) 
+		User.find_by(phone: @user_number) 
 	end
 
 	private
