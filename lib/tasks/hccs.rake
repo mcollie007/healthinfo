@@ -1,5 +1,5 @@
 require 'csv'
-#require 'active_record'
+require 'active_record'
 #require 'activerecord-import'
 
 namespace :csv do
@@ -12,8 +12,8 @@ namespace :csv do
 
     CSV.foreach("#{Rails.root}/lib/data/hcc_mod.csv", headers: true) do |row|
       row_to_insert = row.to_hash.select { |k, v| fields_to_insert.include?(k) }
-      #rows_to_insert << row_to_insert
-      Center.create!(row_to_insert)
+      rows_to_insert << row_to_insert
+      Center.create!(rows_to_insert)
       #Center.import(rows_to_insert)
     end
     
