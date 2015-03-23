@@ -1,6 +1,6 @@
 require 'csv'
-require 'active_record'
-require 'activerecord-import'
+#require 'active_record'
+#require 'activerecord-import'
 
 namespace :csv do
   task :import_hcc => :environment do
