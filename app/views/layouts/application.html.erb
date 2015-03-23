@@ -2,19 +2,20 @@
 <html>
 <head>
   <title>Healthinfo</title>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <%# <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> %>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="ClinicSquare">
+<body>
 <%= render 'layouts/header' %>
 <%= yield %>
 <%#= render 'layouts/footer' %>
 
 </body>
 
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
- <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script> -->
+ <%# <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script> %>
+ <%# <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script> %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </html>

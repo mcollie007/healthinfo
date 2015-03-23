@@ -38,12 +38,12 @@ class TextsController < ApplicationController
 		@centers = TextSearch.new(@text, @from_number, @command, @loc).search
 				if @centers
 					respond_to do |format|
-						format.json {render :index, status: :created, location: @centers}
+						format.json {render json: @centers} 
 					end
 				else
 					@centers = []
 					respond_to do |format|
-						format.json {render :index, status: :created, location: @centers}
+						format.json {render json: @centers} 
 					end
 				end
 	end

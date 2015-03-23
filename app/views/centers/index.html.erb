@@ -1,5 +1,5 @@
 
-<div class="main" ng-controller="MainController">
+<div class="main" data-page-id="index">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4 col-md-4"></div>
@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xs-8 col-md-8 search-list">
+			<div class="col-xs-6 col-md-6 search-list">
 			<p class="search-stats"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
 			<%= will_paginate @search.hits unless @search.nil? %>	
 		
@@ -32,9 +32,9 @@
 					<p><%= center.address %>, <%= center.city %>, 
 					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br>
 
-					<%= "Phone: #{center.phone_number}"  unless center.phone_number.nil? %><br>
-					<%= "Fax: #{center.fax_number}" unless center.fax_number.nil? %><br>
-					<%= "Office Number: #{center.admin_number}" unless center.admin_number.nil? %></p>
+					<em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
+					<em>Fax:</em> <%= center.fax_number ? "#{center.fax_number}" : "Not Available"%><br>
+					<em>Admin #:</em> <%= center.admin_number ? "#{center.admin_number}" : "Not Available" %></p>
 					
 
 					<%= center.site_status.downcase %> <br>
@@ -46,13 +46,14 @@
 			<% end %>
 			
 		</ul>
-		<%= will_paginate @search.hits unless @search.nil? %>
+		<%= will_paginate @search.hits unless @search.nil? %> 
 		
 		</div>
 
-			<div class="col-xs-4 col-md-4">
-				<div class="container-fluid" id="map-canvas">
-        			<leaflet markers="mapMarkers"></leaflet>
+			<div class="col-xs-6 col-md-6">
+				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>">
+        			<!--<leaflet markers="mapMarkers"></leaflet>-->
+
       			</div>
 			</div>
 

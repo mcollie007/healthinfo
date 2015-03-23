@@ -71,8 +71,14 @@
 	width:50%;
 }
 
-#map_canvas {
-  position: relative;
+#map-canvas {
+  margin-top: 30px;
+  height: 512px;
+}
+
+#map {
+	margin-top:10px;
+	height:200px;
 }
 
 .angular-leaflet-map {

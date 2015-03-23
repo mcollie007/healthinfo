@@ -9,13 +9,9 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-// require jquery
-// require jquery_ujs
+// 
 //= require leaflet.js
-//= require helpers.js
-// require angular
-// require angular-ui-router
-// require angular-route.min.js
+//= require jquery
+//= require jquery_ujs
 //= require turbolinks
 //= require_tree .

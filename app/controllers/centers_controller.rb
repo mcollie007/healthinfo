@@ -12,6 +12,7 @@ class CentersController < ApplicationController
 			
 			@centers = @search.results
 			@total = @search.total
+			@page = params[:page]
 			respond_to do |format|
 				format.html 
 				format.json {render json: @centers} #{render :index, status: :created, location: @centers}#
