@@ -8,11 +8,18 @@ var main = function(){
 
 	var page_id = $('.main').data('pageId');
 	var search_box = $('#search');
+	var search_total = $('.search-stats').data('total');
 	
 	if (search_box.val() === ""){
 		$('.search-stats').hide();
 	}else{
 		$('.search-stats').show();
+	}
+
+	if (search_total <= 0 ){
+	    $('#map-canvas').hide();
+	}else{
+	    $('#map-canvas').show();
 	}
 
 	if( page_id === "index" && search_box.val() !== ""){
@@ -37,7 +44,7 @@ var main = function(){
 			//console.log(latitude);
 			var center = new L.LatLng(latitude, longitude);
 			map.setView(center, 12);
-			
+
         	$activeBtn.addClass('selected');
         	$('.btn-location').not($activeBtn).removeClass('selected');
 			

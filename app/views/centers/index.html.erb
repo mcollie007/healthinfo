@@ -9,7 +9,7 @@
 				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
 				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
 		<% end %>
-		<p class="search-stats"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
+		<p class="search-stats" data-total="<%= @total %>"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
 			</div>
 			<div class="col-xs-2 col-md-2"></div>
 		</div>
