@@ -1,4 +1,6 @@
 class TextSearch
+	require 'plivo'
+	#include Plivo
 
 	def initialize(text, from_number, command, loc)
 		@text = text

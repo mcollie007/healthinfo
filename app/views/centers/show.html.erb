@@ -24,7 +24,7 @@
 			</div>	
 			<div class="center-info">
 				<h4><%= @center.site_name %></h4>
-				<p><% if @center.website == "unkn" || @center.website == "" || @center.website == nil %>
+				<p><% if @center.website == "unkn" || @center.website == "" || @center.website == nil || @center.website == "na" %>
 					   Website Unavailable 
 					<% else %>
 					  <%= link_to @center.website, "http://#{@center.website}" %>

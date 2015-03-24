@@ -9,30 +9,34 @@
 				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
 				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
 		<% end %>
+		<p class="search-stats"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
 			</div>
 			<div class="col-xs-2 col-md-2"></div>
 		</div>
 
 		<div class="row">
-			<div class="col-xs-6 col-md-6 search-list">
-			<p class="search-stats"><%= @total == 0 ? "No Health Centers Found" : "#{@total} Health Centers Found" %></p>
+			<div class="col-xs-5 col-md-5 search-list">
+			
 			<%= will_paginate @search.hits unless @search.nil? %>	
 		
 		<ul>
 			
 			<% @centers.each do |center| %>
-				<li class=<%= "#{center.location_type_desc.downcase}"%> id=<%=" cal-#{center.op_calendar.downcase}" %>  >
+				<li class="search-item <%=center.location_type_desc.downcase %> cal-<%= center.op_calendar.downcase %>">
 					<h4><%= link_to center.site_name, center %></h4>
 					
-					<% if center.website == "unkn" || center.website == "" || center.website == nil %>
+					<% if center.website == "unkn" || center.website == "" || center.website == nil || center.website == "na" || center.website == "N/A"%>
 					  Website unavailable</br>
 					<% else %>
 					    <%= link_to center.website, "http://#{center.website}", class: "search-link" %> <br>
 					<% end %>
-					<p><%= center.address %>, <%= center.city %>, 
-					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br>
-
-					<em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
+					<p class="search-info">
+						<button class="bttn btn-location" data-lat="<%= center.latitude%>" data-lng="<%= center.longitude%>"></button>
+					</p>
+					<p class="search-info"><%= center.address %>, <%= center.city %>, 
+					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br></p>
+					<div style="clear:both;"></div>
+					<p><em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
 					<em>Fax:</em> <%= center.fax_number ? "#{center.fax_number}" : "Not Available"%><br>
 					<em>Admin #:</em> <%= center.admin_number ? "#{center.admin_number}" : "Not Available" %></p>
 					
@@ -50,8 +54,8 @@
 		
 		</div>
 
-			<div class="col-xs-6 col-md-6">
-				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>">
+			<div class="col-xs-6 col-md-6" >
+				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>" style="position: fixed; width:512px;">
         			
 
       			</div>

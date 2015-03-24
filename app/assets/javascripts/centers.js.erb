@@ -5,13 +5,22 @@
 */
 
 var main = function(){
+
 	var page_id = $('.main').data('pageId');
 	var search_box = $('#search');
+	
+	if (search_box.val() === ""){
+		$('.search-stats').hide();
+	}else{
+		$('.search-stats').show();
+	}
 
 	if( page_id === "index" && search_box.val() !== ""){
-		
+
+		var map = L.map('map-canvas');
 		var search = $('#map-canvas').data('query');
 		var page = $('#map-canvas').data('page');
+
 		var url_params ="";
 
 		if( page === "" ){
@@ -21,7 +30,18 @@ var main = function(){
 			
 			url_params = "?page="+page+"&search="+search+"&utf8=%E2%9C%93";
 		}
-
+		$('.btn-location').click(function(){
+			var $activeBtn = $(this);
+			var latitude = $(this).data('lat');
+			var longitude = $(this).data('lng');
+			//console.log(latitude);
+			var center = new L.LatLng(latitude, longitude);
+			map.setView(center, 12);
+			
+        	$activeBtn.addClass('selected');
+        	$('.btn-location').not($activeBtn).removeClass('selected');
+			
+		});
 
 		$.getJSON('centers.json'+ url_params,  function(data){
 	           
@@ -48,17 +68,14 @@ var main = function(){
 
 	}
 
-
 	var showMaps = function(data){
 		var lat = data[0].latitude, lng = data[0].longitude;
 		var mainIcon = "<%= asset_path('marker-icon.png') %>";
 		var shadowIcon = "<%= asset_path('marker-shadow.png') %>";
 
-		var map = L.map('map-canvas', {
-			center : [lat,  lng],		
-			zoom: 12
-
-		});
+		
+		var center = new L.LatLng(lat, lng);
+		map.setView(center, 12);
 
 		var MainIcon = L.Icon.Default.extend({
 			options: {
@@ -84,7 +101,7 @@ var main = function(){
 			L.marker( [data[index].latitude, data[index].longitude], {icon: mainIcon})
 				.bindPopup( '<a href="/centers/' + data[index].id+ '">' + data[index].site_name + '</a>')
 				.addTo( map );
-				
+
 		});
 	}
 
@@ -95,7 +112,7 @@ var main = function(){
 		var shadowIcon = "<%= asset_path('marker-shadow.png') %>";
 		var website = "";
 		
-		var map = L.map('map', {
+		var map1 = L.map('map', {
 			center : [lat,  lng],		
 			zoom: 15
 
@@ -113,17 +130,20 @@ var main = function(){
 		L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
 			maxZoom: 18
-		}).addTo(map);
+		}).addTo(map1);
+		//console.log(data.website);
 
-		if (data.website !== null){
-			website = '<a href="http://' + data.website+ '">' + data.site_name + '</a>';
-		} else {
+				
+		if (data.website === null || data.website === "unkn" || data.website === ""){
 			website = data.site_name;
+		} else {
+			
+			website = '<a href="http://' + data.website+ '">' + data.site_name + '</a>';
 		}
 		
 		L.marker( [data.latitude, data.longitude], {icon: redIcon})
 				.bindPopup( website  )
-				.addTo( map );
+				.addTo( map1 );
 	}
 
 	

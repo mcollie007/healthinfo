@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 #gem 'angular-rails-templates'
+gem 'plivo'
 
 #gem 'angular_rails_csrf'
 
