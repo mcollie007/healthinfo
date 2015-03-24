@@ -33,7 +33,7 @@
 					<p class="search-info">
 						<button class="bttn btn-location" data-lat="<%= center.latitude%>" data-lng="<%= center.longitude%>"></button>
 					</p>
-					<p class="search-info"><%= center.address %>, <%= center.city %>, 
+					<p><%= center.address %>, <%= center.city %>, 
 					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br></p>
 					<div style="clear:both;"></div>
 					<p><em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
@@ -55,7 +55,7 @@
 		</div>
 
 			<div class="col-xs-6 col-md-6" >
-				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>" style="position: fixed; width:512px;">
+				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>" >
         			
 
       			</div>
