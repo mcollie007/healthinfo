@@ -6,7 +6,7 @@ class CentersController < ApplicationController
 			#Rails.logger.debug(:search)
 			@search = Center.search do
 				fulltext params[:search]
-				paginate :page => params[:page] || 1, :per_page => 5
+				paginate :page => params[:page] || 1, :per_page => 6
 			end
 			
 			@centers = @search.results
