@@ -30,7 +30,7 @@
 			
 			<% @centers.each do |center| %>
 				<div class="col-xs-4 col-md-4 search-item <%#=center.location_type_desc.downcase %> cal-<%= center.op_calendar.downcase %>">
-					<% site_name = center.site_name[0..45].gsub(/\s\w+\s*$/,'...') %>
+					<% site_name = CentersHelper.name_format(center.site_name) %>
 					<h4><%= link_to site_name, center %></h4>
 					
 					<% if center.website == "unkn" || center.website == "" || center.website == nil || center.website == "na" || center.website == "N/A"%>
@@ -42,7 +42,8 @@
 						<button class="bttn btn-location" data-lat="<%= center.latitude%>" data-lng="<%= center.longitude%>"></button>
 					</p>
 					<p><%= center.address %>, <%= center.city %>, 
-					<%= center.state %>, <%= center.zip_code %><br> <%= center.full_county_name %><br></p>
+					<%= center.state %>, <%= CentersHelper.zipcode_format(center.zip_code) %><br> <%= center.full_county_name %>
+				    </p>
 					<div style="clear:both;"></div>
 					<p><em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
 					<em>Fax:</em> <%= center.fax_number ? "#{center.fax_number}" : "Not Available"%><br>
@@ -56,7 +57,7 @@
 		</div><!--/.row -->
 
 		<div class="row">
-			<div class="col-xs-4 col-md-4">
+			<div class="col-xs-6 col-md-6">
 				<%= will_paginate @search.hits unless @search.nil? %> 
 			</div>
 		</div>
