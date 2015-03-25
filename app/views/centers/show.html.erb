@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="row">
 		
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-xs-10 col-md-10 col-md-offset-1">
 			<div class="center-map">
 				
 				<div class="container-fluid" id="map" data-center-id="<%= @center.id %>">
@@ -13,15 +13,8 @@
 
 	</div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<div class="center-status">
-				<p>Status: <em>
-					<%= @center.site_status %> |
-					<%= @center.location_type_desc %> |
-					<%= @center.center_type_desc %> |
-					<%= @center.op_schedule_desc %> |
-					<%= @center.op_calendar %> </em></p>
-			</div>	
+		<div class="col-xs-10 col-md-10 col-md-offset-1">
+				
 			<div class="center-info">
 				<h4><%= @center.site_name %></h4>
 				<p><% if @center.website == "unkn" || @center.website == "" || @center.website == nil || @center.website == "na" %>
@@ -29,19 +22,26 @@
 					<% else %>
 					  <%= link_to @center.website, "http://#{@center.website}" %>
 					<% end %></p>
-				<div class="col-xs-6">
+				<div class="col-xs-4">
 				<p style="margin-left:-15px;"><strong style="display:block;">Contact</strong>
 					<em>Phone:</em> <%= @center.phone_number ? "#{@center.phone_number}" : "Not Available"%><br>
 					<em>Fax:</em> <%= @center.fax_number ? "#{@center.fax_number}" : "Not Available"%><br>
 					<em>Admin #:</em> <%= @center.admin_number ? "#{@center.admin_number}" : "Not Available" %><br>
 					 
 					</p></div>
-					<div class="col-xs-6">
+					<div class="col-xs-4">
 					<p><strong style="display:block;">Address</strong>
 					<%= @center.address %><br>
 					<%= @center.city %>,
 					<%= @center.state %>,
 					<%= @center.zip_code %> </br> <%= @center.full_county_name %></p>
+					</div>
+					<div class="col-xs-4">
+					<p><strong style="display:block;">Status</strong>
+					<em>Site Status: </em><%= @center.site_status %> <br>
+					<em>Location Type: </em><%= @center.location_type_desc %> <br>
+					<em>Clinic Type: </em><%= @center.center_type_desc %> <br>
+					<em>Clinic Access: </em><%= @center.op_schedule_desc %>, </em><%= @center.op_calendar %></p>
 					</div>
 			</div>
 		</div>
@@ -49,3 +49,5 @@
 	</div>
 </div>
 </div>
+
+<%= render 'layouts/footer' %>

@@ -14,8 +14,13 @@ module CentersHelper
 	end
 
 	def self.zipcode_format(str)
-		zip = str.split("-")
-		return zip[0]
+		if (str)
+			zip = str.split("-")
+			return zip[0]
+		else
+			str = "N/A"
+			return str
+		end
 	end
 
 	def zipcode_format(str)
