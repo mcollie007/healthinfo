@@ -18,8 +18,8 @@ h4 a:firstletter{
 	text-transform: uppercase;
 }
 .footer {
-	/*position: absolute;
-	bottom:0;*/
+	position: absolute;
+	bottom:0;
 	width:100%;
 	padding: 30px 0 40px 0;
 	background: #456789;
@@ -87,6 +87,16 @@ h4 a:firstletter{
 	font-size:14px;
 	color: #b8b8b8;
 	margin-bottom: 10px;
+}
+.help p, .about p, .pagination{
+	font-size: 15px;
+}
+.help-sms {
+	margin-left: -40px;
+}
+.help-sms li{
+	list-style-type:none;
+	padding: 3px 0;
 }
 .bttn {
   display: inline;

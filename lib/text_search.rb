@@ -11,8 +11,8 @@ class TextSearch
 		Rails.logger.debug(@location)
 		
 		@service_number = "9545555454"
-		@help_message = 'Service Commands:  CLINIC, MORE and HELP. Commands use: 
-		CLINIC@zip_code, CLINIC@city_name, CLINIC@county_name, MORE returns remaining result, and HELP lists service commands.' 
+		@help_message = 'Service Commands:  CLINIC and HELP. Commands use: 
+		CLINIC@zip_code, CLINIC@city_name, CLINIC@county_name and HELP lists service commands.' 
 	end
 
 	def search
@@ -25,6 +25,7 @@ class TextSearch
 				fulltext search_params
 				#paginate :page => params[:page] || 1, :per_page => 5
 			end
+			
 			data = @search.results
 			Rails.logger.debug(data.class)
 			total = @search.total
@@ -55,7 +56,7 @@ class TextSearch
 			Rails.logger.debug(@search)
 		else
 			#send help info to user
-			@search = send("Service Commands are: HELP, CLINIC, and MORE")
+			@search = send("Service Commands are: HELP and CLINIC")
 			Rails.logger.debug(@search)
 		end
 
@@ -77,7 +78,7 @@ class TextSearch
 		
 		#messages = data.shift(amount)
 		#Rails.logger.debug(messages)
-		#Rails.logger.debug(:data)
+		#Rails.logger.debug(data)
 		#if @user.update(data: data, total: total)
 
 			data.each do |msg|
@@ -105,7 +106,7 @@ class TextSearch
 	
 
 	def send(message)
-		#p = RestApi.new(Auth_id, Auth_Token)
+		#p = RestApi.new(ENV['AUTH_ID'], ENV['AUTH_TOKEN'])
 
 		params = {
 			'src' => @service_number,
@@ -132,6 +133,10 @@ class TextSearch
 
 	def find_user
 		User.find_by(phone: @user_number) 
+	end
+
+	def find_data(id)
+		Center.find(id)
 	end
 
 	private
