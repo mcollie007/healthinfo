@@ -13,20 +13,23 @@ var main = function(){
 
 	if (search_box.val() === ""){
 		$('.search-stats').hide();
+
 		$search_area.css({
 			"position" : "relative",
 			"top" : "50%",
 			"left" : "35%",
 			"margin-top" : "20%"
 		});
+		$('.search-area h3').show('slow');
 	}else{
 		$('.search-stats').show();
+		$('.search-area h3').hide();
 		$search_area.css({
 			"position" : "inherit",
 			"top" : "0px",
 			"left" : "0px",
 			"margin-top" : "0px"
-		});
+		}, 'slow');
 	}
 
 	if (search_total <= 0 ){
