@@ -27,5 +27,27 @@ module CentersHelper
 		return CentersHelper.zipcode_format(str)
 	end
 
+	def self.title_format(str)
+		str.sub(/\S/, &:upcase)
+	end
+
+	def title_format(str)
+		return CentersHelper.title_format(str)
+	end
+
+	def self.link_format(str)
+		if(str)
+			if str[0..6] != "http://"
+				"http://"+str
+			else
+				str
+			end
+		end
+	end
+
+	def link_format(str)
+		return CentersHelper.link_format(str)
+	end
+
 
 end

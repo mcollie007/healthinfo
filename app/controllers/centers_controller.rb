@@ -3,7 +3,7 @@ class CentersController < ApplicationController
 	def index
 
 		if params[:search].present?
-			#Rails.logger.debug(:search)
+			
 			@search = Center.search do
 				fulltext params[:search]
 				paginate :page => params[:page] || 1, :per_page => 6

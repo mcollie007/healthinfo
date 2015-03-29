@@ -1,16 +1,13 @@
 class TextSearch
-	require 'plivo'
-	#include Plivo
+	
 
 	def initialize(text, from_number, command, loc)
 		@text = text
 		@user_number = from_number
 		@command = command
 		@location = loc
-		Rails.logger.debug(@command)
-		Rails.logger.debug(@location)
 		
-		@service_number = "9545555454"
+		@service_number = "+15619485417"
 		@help_message = 'Service Commands:  CLINIC and HELP. Commands use: 
 		CLINIC@zip_code, CLINIC@city_name, CLINIC@county_name and HELP lists service commands.' 
 	end
@@ -20,90 +17,77 @@ class TextSearch
 		case @command
 		when 'CLINIC'
 			
-			Rails.logger.debug(search_params)
+			
 			@search = Center.search do
 				fulltext search_params
 				#paginate :page => params[:page] || 1, :per_page => 5
 			end
 			
 			data = @search.results
-			Rails.logger.debug(data.class)
+			
 			total = @search.total
 			
-			Rails.logger.debug(total)
 			@user = find_user
 			if @user.update(data: data, total: total)
-				#amount = page_generator(total)
+				
 				@search = text_page( data, total, 3)
 			end
 		when 'MORE'
-			 #amount ||= @cmd[1] if empty
+			 
 			@user = find_user
 			if @user 
 				data = @user.data
-				Rails.logger.debug(data.class)
+				
 				total = @user.total
-				#mount = page_generator(total)
-				Rails.logger.debug(data)
-				Rails.logger.debug(total)
+				
 				@search = text_page( data, total, 3)
 			end
 		when 'HELP'
 			#send help info to user
 			
 			@search = send(@help_message)
-			#Rails.logger.debug(data)
-			Rails.logger.debug(@search)
+			
 		else
 			#send help info to user
 			@search = send("Service Commands are: HELP and CLINIC")
-			Rails.logger.debug(@search)
+			
 		end
 
 	end
 
 	def search_params
-		#{fq: q: "Hialeah", fl: 
+		
 		params = @location
 	
 	end
 
 	def text_page(data, total, amount)
 
-		#messages = data.shift(amount)
-		@user = find_user
-		#max = data.length
-		#pointer = total
-		#total-- #= total - amount
 		
-		#messages = data.shift(amount)
-		#Rails.logger.debug(messages)
-		#Rails.logger.debug(data)
-		#if @user.update(data: data, total: total)
-
+		#@user = find_user
+		for i in 0..amount
+		    message = message_generator(data[i])
+			sendTwilio(message)
+		end
+		
+=begin
 			data.each do |msg|
 				message = message_generator(msg)
-			#Rails.logger.debug(message)
+			##Rails.logger.debug(message)
 				send(message)
 			end
-		#end
-	end
-=begin
-			#if total <= amount
-				for i in 0...amount
-			
-					message = message_generator(data[i])
-					#data.delete_at(i)
-			#Rails.logger.debug(message)
-					send(message)
-					#send("Text 'MORE' to list next results")
-				end
-			#else
-				#send("End of search results")
-			#end
 =end
+	end
+
 	
-	
+	def sendTwilo(msge)
+	    @client = Twilio::REST::Client.new ENV['PRO_SID'], ENV['PRO_TOKEN']
+ 
+        message = @client.account.messages.create(:body => msge,
+            :to => @user_number,     # Replace with your phone number
+            :from => @service_number)   # Replace with your Twilio number
+        puts message.sid
+	end
 
 	def send(message)
 		#p = RestApi.new(ENV['AUTH_ID'], ENV['AUTH_TOKEN'])
@@ -118,7 +102,7 @@ class TextSearch
 		}
 
 		#response = p.send_message(params)
-		Rails.logger.debug(params)
+		#Rails.logger.debug(params)
 
 		#uuid = response[1]['message_uuid'][0]
 

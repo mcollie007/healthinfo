@@ -3,21 +3,25 @@
 	<div class="container">
 
 		
-
+<div class="search-area">
 		<div class="row">
 			
 			<div class="col-xs-8 col-md-8">
+				
 				<em style="margin: 0 auto;">Search by city, county name or zip code</em>
 		<%= form_tag centers_path,  class: "form-search", :method => :get do %>
 				<%= text_field_tag :search, params[:search], class:"input-medium search-query" %>
 				<%=submit_tag "Search", :name => nil,  class: "btn btn-small btn-info" %>			
 		<% end %>
+				
 		
 			
 			</div>
+
+
 			<div class="col-xs-4 col-md-4"></div>
 		</div>
-
+</div><!--/.search-area -->
 		<div class="row">
 			<div class="col-xs-12 col-md-12" >
 				<div class="container-fluid" id="map-canvas" data-query="<%= params[:search] %>" data-page="<%= @page %>" ></div>
@@ -29,26 +33,29 @@
 			<div class="search-list">
 			
 			<% @centers.each do |center| %>
-				<div class="col-xs-4 col-md-4 search-item <%#=center.location_type_desc.downcase %> cal-<%= center.op_calendar.downcase %>">
+				<div class="col-xs-4 col-md-4 search-item cal-<%= center.op_calendar.downcase %>">
 					<% site_name = CentersHelper.name_format(center.site_name) %>
+					<% link_name = CentersHelper.link_format(center.website) %>
 					<h4><%= link_to site_name, center %></h4>
 					
 					<% if center.website == "unkn" || center.website == "" || center.website == nil || center.website == "na" || center.website == "N/A"%>
 					  Website unavailable</br>
 					<% else %>
-					    <%= link_to center.website, "http://#{center.website}", class: "search-link" %> <br>
+					    <%= link_to center.website, "#{link_name}", class: "search-link" %> <br>
 					<% end %>
 					<p class="search-info">
 						<button class="bttn btn-location" data-lat="<%= center.latitude%>" data-lng="<%= center.longitude%>"></button>
 					</p>
 					<p><%= center.address %>, <%= center.city %>, 
-					<%= center.state %>, <%= CentersHelper.zipcode_format(center.zip_code) %><br> <%= center.full_county_name %>
+					<%= center.state %>, <%= CentersHelper.zipcode_format(center.zip_code) %> <%= center.full_county_name %>
 				    </p>
 					<div style="clear:both;"></div>
-					<p><em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%><br>
-					<em>Fax:</em> <%= center.fax_number ? "#{center.fax_number}" : "Not Available"%><br>
-					<em>Admin #:</em> <%= center.admin_number ? "#{center.admin_number}" : "Not Available" %></p>
-					<%#= center.site_status.downcase %>
+					<div class="search-address">
+					<p><em>Phone:</em> <%= center.phone_number ? "#{center.phone_number}" : "Not Available"%></p>
+					<p><em>Fax:</em> <%= center.fax_number ? "#{center.fax_number}" : "Not Available"%></p>
+					<p><em>Admin #:</em> <%= center.admin_number ? "#{center.admin_number}" : "Not Available" %></p>
+				</div>
+					
 				</div>
 
 			<% end %>

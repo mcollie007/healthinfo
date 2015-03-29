@@ -3,7 +3,7 @@ class TextsController < ApplicationController
 	def receive
 		@from_number = params[:From] #from user
 		@to_number = params[:To] #this webservice
-		@text = params[:Text] #message recieved
+		@text = params[:Body] #message recieved
 
 		@cmd = @text.split("@")#(/[\W@\s\>]/)
 		@command = @cmd[0]
