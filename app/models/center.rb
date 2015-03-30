@@ -5,11 +5,11 @@ class Center < ActiveRecord::Base
           location_desc site_status location_type_desc center_type_desc op_schedule_desc op_calendar longitude latitude
           state_name county_name full_county_name
 =end
-	searchable do 
-		text :zip_code #, :as => :zip_code_textp
-		text :county_name, :full_county_name, :city
+#	searchable do 
+#		text :zip_code #, :as => :zip_code_textp
+#		text :county_name, :full_county_name, :city
 		
-	end
+#	end
 =begin
 	def as_json(options = {})
 		super(options.merge(include: [:center]))
