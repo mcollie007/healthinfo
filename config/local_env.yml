@@ -1,0 +1,16 @@
+#plivo Auth_id
+AUTH_ID: MAYJM1ZWZLOTY2NTC3OW
+#pilivo Auth_Token
+AUTH_TOKEN: MmNjMWE0MTFjZDRkODYxMTA5ODgwOTk3MDM3YzRk
+
+#for number: 9542660026
+#twilio Account_sid
+ACC_SID: AC596f55ea91b3dd41bfbe57a77fd89476
+
+#twilio Auth_Token
+ACC_TOKEN: e13117dfa161fdbce25a758f933cb32e
+
+#for number: 9542896583
+PRO_SID: AC593df99155de5ef656cb807a9b68304c
+
+PRO_TOKEN: 7084d97da51d14fc4eeb37e3f7db69ff
